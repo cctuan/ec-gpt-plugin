@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   // })
   return NextResponse.json(
     {
-      products: response.data.search.contents,
+      products: response.products,
     },
     {
       status: 200,
