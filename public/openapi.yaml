@@ -1,11 +1,28 @@
 openapi: 3.0.1
 info:
-  title: Travel Plugin
-  description: A plugin that allows the user to find the Position of Interests while using ChatGPT.
+  title: EC Product Plugin
+  description: A plugin that allows the user to find the merchant product information for buy while using ChatGPT.
   version: 'v1'
 servers:
   - url: https://nextjs-chatgpt-plugin-starter.vercel.app
 paths:
+  /api/get-product:
+    post:
+      operationId: getProduct
+      summary: Get the list of recommended products from E-commerce site
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/searchProductRequest'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getProductResponse'
   /api/get-poi:
     post:
       operationId: getPois
@@ -23,63 +40,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/getPoiResponse'
-  /api/todos:
-    get:
-      operationId: getTodos
-      summary: Get the list of todos
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/getTodosResponse'
-  /api/create-todo:
-    post:
-      operationId: addTodo
-      summary: add a new todo
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/addTodoRequest'
-      responses:
-        "200":
-          description: OK
-  /api/delete-todo:
-    post:
-      operationId: deleteTodo
-      summary: delete a todo
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/deleteTodoRequest'
-      responses:
-        "200":
-          description: OK
 components:
   schemas:
-    deleteTodoRequest:
-      type: object
-      required:
-      - todo
-      properties:
-        todo:
-          type: string
-          description: The todo to delete from the list.
-          required: true
-    addTodoRequest:
-      type: object
-      required:
-      - todo
-      properties:
-        todo:
-          type: string
-          description: The todo to add to the list.
-          required: true
     searchPoiRequest:
       type: object
       required:
@@ -89,18 +51,105 @@ components:
           type: string
           description: The keyword for searching the position of interest.
           required: true
-    getTodosResponse:
-      type: object
-      properties:
-        todos:
-          type: array
-          items:
-            type: string
-          description: The list of todos.
-    getPoiResponse:
+    searchProductRequest:
       type: object
       required:
-      - keyword
+      - queryString
+      properties:
+        queryString:
+          type: string
+          description: The keyword for searching the product.
+          required: true
+        maxPrice:
+          type: number
+          description: The maximum price of the product.
+          required: false
+        minPrice:
+          type: number
+          description: The minimum price of the product.
+          required: false
+        specialPrice:
+          type: boolean
+          description: Whether the product is on sale.
+          required: false
+        point:
+          type: boolean
+          description: Whether the product has LINE Point reward.
+          required: false
+        lineBadge:
+          type: boolean
+          description: Whether the product is sold by 官方直營.
+          required: false
+        linePay:
+          type: boolean
+          description: Whether the product can be paid by LINE Pay.
+          required: false
+        color:
+          type: array
+          items: 
+            type: string
+          description: The color string of the product. e.g. [VIOLET,WHITE,BLACK]
+          required: false
+    getProductResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/productInfo'
+          description: The list of suggested products.
+    productInfo:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the product.
+        productPageUrl:
+          type: string
+          description: The link to the product detail page.
+        price:
+          type: number
+          description: The price of the product.
+        imageUrl:
+          type: string
+          description: The image url of the product.
+        point:
+          type: object
+          $ref: '#/components/schemas/pointReward'
+        specialPrice:
+          type: number
+          description: The special price of the product.
+        merchant:
+          type: object
+          $ref: '#/components/schemas/merchantInfo'
+          description: The merchant of the product.
+        lowPriceType:
+          type: string
+          description: The low price type of the product.
+        status:
+          type: string
+          description: The status of the product.
+    merchantInfo:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+          description: The image url of the merchant.
+        name:
+          type: string
+          description: The name of the merchant.
+        url:
+          type: string
+          description: The link to the merchant detail page.
+    pointReward:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: The LINE point reward of the product.
+    getPoiResponse:
+      type: object
       properties:
         pois:
           type: array
