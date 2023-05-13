@@ -105,7 +105,7 @@ components:
         name:
           type: string
           description: Name of the product.
-        productPageUrl:
+        url:
           type: string
           description: The link to the product detail page.
         price:
@@ -120,6 +120,10 @@ components:
         specialPrice:
           type: number
           description: The special price of the product.
+        allMerchants:
+          type: object
+          $ref: '#/components/schemas/merchantInfo'
+          description: The merchant of the product.
         merchant:
           type: object
           $ref: '#/components/schemas/merchantInfo'
