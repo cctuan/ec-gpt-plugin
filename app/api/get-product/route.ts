@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     "filter":filter,
     "comparisonFirst":false,
     "page":1,
-    "pageSize":20
+    "pageSize":5
   }
 
   const responseRaw = await fetch(`https://buy.line.me/api/graphql`, {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   // })
   return NextResponse.json(
     {
-      products: response.products,
+      products: response.data.search.contents,
     },
     {
       status: 200,
