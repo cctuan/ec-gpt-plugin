@@ -2,17 +2,17 @@
   "schema_version": "v1",
   "name_for_human": "EC Plugin (no auth)",
   "name_for_model": "ecproduct",
-  "description_for_human": "Plugin for searching best merchant product from LINE E-commerce. Users can find related merchant product's information, price, and color ...etc",
-  "description_for_model": "PPlugin for searching best merchant product from LINE E-commerce. Users can find related merchant product's information, price, and color ...etc",
+  "description_for_human": "Plugin for searching merchant product info from LINE E-commerce.",
+  "description_for_model": "PPlugin for searching merchant product info from LINE E-commerce.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://nextjs-chatgpt-plugin-starter.vercel.app/openapi.yaml",
+    "url": "https://ec-gpt-plugin.vercel.app/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "https://nextjs-chatgpt-plugin-starter.vercel.app/logo.png",
+  "logo_url": "https://ec-gpt-plugin.vercel.app/logo.png",
   "contact_email": "support@example.com",
   "legal_info_url": "https://example.com/legal"
 }

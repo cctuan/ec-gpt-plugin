@@ -4,7 +4,7 @@ info:
   description: A plugin that allows the user to find the merchant product information for buy while using ChatGPT.
   version: 'v1'
 servers:
-  - url: https://nextjs-chatgpt-plugin-starter.vercel.app
+  - url: https://ec-gpt-plugin.vercel.app
 paths:
   /api/get-product:
     post:
